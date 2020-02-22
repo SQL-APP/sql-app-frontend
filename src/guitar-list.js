@@ -21,7 +21,7 @@ export default class GuitarList extends Component {
                     <ul>
                     {
                         this.state.guitars.map(guitar =>
-                         <Link to={`guitars/`} key={guitar.id}>
+                         <Link to={`guitars/${guitar.make}`} key={guitar.id}>
                             <GuitarItem data={guitar} />
                         </Link>)
                     }
