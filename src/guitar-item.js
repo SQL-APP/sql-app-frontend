@@ -1,16 +1,22 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+// import { Link } from 'react-router-dom';
 export default class GuitarItem extends Component {
     render() {
-        return (
+        const { guitars } = this.props;
+
+        if (guitars) return (
             <div>
                 <li id="guitar-list">
-                    <h1>{this.props.data.model}</h1>
-                    <h3>make: {this.props.data.make}</h3>
-                    <img src={this.props.data.url} alt="" id="guitar-images"/>
-                    <h3>Year: {this.props.data.year}</h3>
-                    <h3>Is Left Handed: {this.props.data.is_left_handed}</h3>
+                    <h1>{guitars.model}</h1>
+                    {/* <Link to={`update/${guitars.id}`}>update</Link> */}
+                    <h3>make: {guitars.make}</h3>
+                    <img src={guitars.url} alt="" id="guitar-images"/>
+                    <h3>Year: {guitars.year}</h3>
+                    <h3>Is Left Handed: {guitars.is_left_handed}</h3>
                 </li>
             </div>
         )
+        return null;
     }
+    
 }

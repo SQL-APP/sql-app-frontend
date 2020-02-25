@@ -1,18 +1,30 @@
 import React, { Component } from 'react'
 import request from 'superagent';
 
-export default class CreateGuitar extends Component {
+export default class UpdateGuitar extends Component {
     state = {
         makes: [],
-        is_left_handed: true,
-        make: 1,
     };
 
     componentDidMount = async () => {
         const makes = await request.get('https://rocky-cove-46033.herokuapp.com/api/makes');
         
         this.setState({ makes: makes.body });
+
+        const guitar = await request.get(`https://rocky-cove-46033.herokuapp.com/api/guitars/${this.props.match.params.id}`);
+
+        console.log(guitar);
+        const guitarToUpdate = guitar.body[0];
+        this.setState({
+            model: guitarToUpdate.model,
+            is_left_handed: guitarToUpdate.is_sidekick,
+            url: guitarToUpdate.url,
+            make: guitarToUpdate.type_id,
+            year: guitarToUpdate.year
+        });
+    
     }
+
     handleModelChange = (e) => {
         this.setState({ model: e.target.value })
     }
@@ -41,6 +53,12 @@ export default class CreateGuitar extends Component {
     handleImageChange = (e) => {
         this.setState({ image: e.target.value })
     }
+
+    handleDelete = async () => {
+        await request.delete(`https://rocky-cove-46033.herokuapp.com/api/guitars/${this.props.match.params.id}`);
+
+        this.props.history.push('/');
+    }
 /////////////////////////
     handleSubmit = async (e) => {
         e.preventDefault();
@@ -50,7 +68,8 @@ export default class CreateGuitar extends Component {
             is_left_handed: this.state.is_left_handed,
             url: this.state.image,
             make_id: this.state.make,
-            year: this.state.year
+            year: this.state.year,
+            id: Number(this.props.match.params.id),
         }
 
         const dbGuitar = await request.post('https://rocky-cove-46033.herokuapp.com/api/guitars', newGuitar);
@@ -102,6 +121,10 @@ export default class CreateGuitar extends Component {
                     <br />
                 <button>Submit</button>
                 </form>
+
+                <button onClick={ this.handleDelete } 
+                style={{ background: 'red', marginTop: 100}}>DELETE</button>
+
             </div>
         )
     }

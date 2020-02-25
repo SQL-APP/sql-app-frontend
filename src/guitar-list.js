@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import GuitarItem from './guitar-item.js';
 import request from 'superagent';
 // import SearchBar from './SearchBar.js';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+
 export default class GuitarList extends Component {
     state = {
         // searchQuery: this.props.match.params.name,
@@ -20,9 +21,9 @@ export default class GuitarList extends Component {
             <div>
                     <ul>
                     {
-                        this.state.guitars.map(guitar =>
+                        this.state.guitars.length && this.state.guitars.map(guitar =>
                          <Link to={`guitars/${guitar.model}`} key={guitar.id}>
-                            <GuitarItem data={guitar} />
+                            <GuitarItem guitars={guitar} />
                         </Link>)
                     }
                 </ul>

@@ -21,10 +21,10 @@ export default class Detail extends Component {
 
     render() {
         const { guitar } = this.state;
-
+        console.log(guitar);
         return (
             // render a pokeitem, passing the poemonChosen state as a prop
-            <GuitarItem data={ guitar } />
+            <GuitarItem guitars={ guitar } />
       );
     }
 }
