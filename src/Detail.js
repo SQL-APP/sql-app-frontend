@@ -11,20 +11,20 @@ export default class Detail extends Component {
          // lets make a fetch using `this.props.match.params.pokeid`, which comes from the URL (thanks to react router and our detail/:pokeid? route. The colon in the route definition means it will be passed as a prop to the this component) 
         const data = await getGuitars(this.props.match.params.guitarID);
 
+        console.log(data.body);
         if (data.body) {
         
         // set the pokemonChosen state to the value of the fetch
         this.setState({ guitar: data.body[0] })
-            
         }
     }
 
     render() {
         const { guitar } = this.state;
-
+        console.log(guitar);
         return (
             // render a pokeitem, passing the poemonChosen state as a prop
-            <GuitarItem data={ guitar } />
+            <GuitarItem guitars={ guitar } />
       );
     }
 }
