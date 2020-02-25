@@ -17,9 +17,9 @@ export default class UpdateGuitar extends Component {
         const guitarToUpdate = guitar.body[0];
         this.setState({
             model: guitarToUpdate.model,
-            is_left_handed: guitarToUpdate.is_sidekick,
+            is_left_handed: guitarToUpdate.is_left_handed,
             url: guitarToUpdate.url,
-            make: guitarToUpdate.type_id,
+            make: guitarToUpdate.make_id,
             year: guitarToUpdate.year
         });
     
@@ -51,7 +51,7 @@ export default class UpdateGuitar extends Component {
     }
 
     handleImageChange = (e) => {
-        this.setState({ image: e.target.value })
+        this.setState({ url: e.target.value })
     }
 
     handleDelete = async () => {
@@ -66,13 +66,13 @@ export default class UpdateGuitar extends Component {
         const newGuitar = {
             model: this.state.model,
             is_left_handed: this.state.is_left_handed,
-            url: this.state.image,
+            url: this.state.url,
             make_id: this.state.make,
             year: this.state.year,
             id: Number(this.props.match.params.id),
         }
 
-        const dbGuitar = await request.post('https://rocky-cove-46033.herokuapp.com/api/guitars', newGuitar);
+        const dbGuitar = await request.put('https://rocky-cove-46033.herokuapp.com/api/guitars', newGuitar);
 
 
         console.log(dbGuitar)
@@ -94,8 +94,8 @@ export default class UpdateGuitar extends Component {
                     <label>
                         Make: 
                         <select onChange={ this.handleMakeChange }>
-                            { this.state.makes.map(make => <option value={make.id}> 
-                            {make.make}
+                            {this.state.makes.length && this.state.makes.map(guitar => <option value={guitar.id}> 
+                            {guitar.make}
                             </option>)}
                         </select>
                     </label>
@@ -107,7 +107,7 @@ export default class UpdateGuitar extends Component {
                     <br/>
                     <label>
                         Image: 
-                        <input value={ this.state.image } onChange={this.handleImageChange} />
+                        <input value={ this.state.url } onChange={this.handleImageChange} />
                     </label>
                     <br/>
 

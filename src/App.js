@@ -5,7 +5,7 @@ import './App.css';
 import GuitarList from './guitar-list.js';
 import Detail from './Detail.js';
 import CreateGuitar from './create-guitar.js';
-// import UpdateGuitar from './update-guitar.js';
+import UpdateGuitar from './update-guitar.js';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 // import About from './About.js';
 
@@ -28,7 +28,7 @@ export default class App extends React.Component {
             <Route exact path="/:guitars?" component={GuitarList} />
             <Route exact path="/guitars/:guitarID" component={Detail} />
             <Route path="/:create-guitar/New" component={CreateGuitar} />
-            {/* <Route exact path='/update/:id' component={UpdateGuitar} /> */}
+            <Route exact path='/update/:id' component={UpdateGuitar} />
             {/* <Route exact path="/" component={About} /> */}
           </Switch>
         </div>
